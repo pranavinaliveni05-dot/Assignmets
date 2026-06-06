@@ -1,0 +1,158 @@
+ <!DOCTYPE html>
+<html>
+<head>
+    <title>Library Book Management</title>
+</head>
+
+<body>
+
+<h1>Library Book Management</h1>
+
+<button onclick="getBooks()">Display Books</button>
+<button onclick="addBook()">Add Book</button>
+<button onclick="updateBook()">Update Book</button>
+<button onclick="deleteBook()">Delete Book</button>
+
+<div id="output"></div>
+
+<script>
+
+const api = "https://jsonplaceholder.typicode.com/posts";
+
+// GET
+function getBooks() {
+
+    fetch(api)
+
+    .then(response => response.json())
+
+    .then(data => {
+
+        let output = "<h2>Book List</h2>";
+
+        data.slice(0,10).forEach(book => {
+
+            output += `
+                <hr>
+                <p><b>ID:</b> ${book.id}</p>
+                <p><b>Title:</b> ${book.title}</p>
+            `;
+
+        });
+
+        document.getElementById("output").innerHTML = output;
+
+    })
+
+    .catch(error => {
+
+        document.getElementById("output").innerHTML =
+        "Error Fetching Books";
+
+    });
+
+}
+
+// POST
+function addBook() {
+
+    fetch(api, {
+
+        method: "POST",
+
+        headers: {
+            "Content-Type": "application/json"
+        },
+
+        body: JSON.stringify({
+            title: "JavaScript Book"
+        })
+
+    })
+
+    .then(response => response.json())
+
+    .then(data => {
+
+        document.getElementById("output").innerHTML = `
+            <h3>Book Added Successfully</h3>
+            <pre>${JSON.stringify(data)}</pre>
+        `;
+
+    })
+
+    .catch(error => {
+
+        document.getElementById("output").innerHTML =
+        "Error Adding Book";
+
+    });
+
+}
+
+// PUT
+function updateBook() {
+
+    fetch(api + "/1", {
+
+        method: "PUT",
+
+        headers: {
+            "Content-Type": "application/json"
+        },
+
+        body: JSON.stringify({
+            title: "Updated JavaScript Book"
+        })
+
+    })
+
+    .then(response => response.json())
+
+    .then(data => {
+
+        document.getElementById("output").innerHTML = `
+            <h3>Book Updated Successfully</h3>
+            <pre>${JSON.stringify(data)}</pre>
+        `;
+
+    })
+
+    .catch(error => {
+
+        document.getElementById("output").innerHTML =
+        "Error Updating Book";
+
+    });
+
+}
+
+// DELETE
+function deleteBook() {
+
+    fetch(api + "/1", {
+
+        method: "DELETE"
+
+    })
+
+    .then(response => {
+
+        document.getElementById("output").innerHTML =
+        "<h3>Book Deleted Successfully</h3>";
+
+    })
+
+    .catch(error => {
+
+        document.getElementById("output").innerHTML =
+        "Error Deleting Book";
+
+    });
+
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,62 @@
+ <!DOCTYPE html>
+<html>
+<head>
+    <title>Student Result System</title>
+</head>
+<body>
+
+<h2>Student Results</h2>
+<div id="result"></div>
+
+<script>
+
+// Student Class
+class Student {
+    constructor(name, marks) {
+        this.name = name;
+        this.marks = marks;
+    }
+
+    // Arrow functions
+    getTotal = () => {
+        return this.marks.reduce((sum, m) => sum + m, 0);
+    }
+
+    getAverage = () => {
+        return this.getTotal() / this.marks.length;
+    }
+}
+
+// Semester marks
+const sem1 = [80, 75, 90];
+const sem2 = [85, 70, 95];
+
+// Spread operator to merge marks
+const combinedMarks = [...sem1, ...sem2];
+
+// Create student
+const student1 = new Student("Sai", combinedMarks);
+
+// Destructuring
+const { name, marks } = student1;
+
+// Calculations
+const total = student1.getTotal();
+const average = student1.getAverage();
+
+// Display
+const result = `
+    <p>
+    <b>Name:</b> ${name} <br>
+    <b>Marks:</b> ${marks.join(", ")} <br>
+    <b>Total:</b> ${total} <br>
+    <b>Average:</b> ${average.toFixed(2)}
+    </p>
+`;
+
+document.getElementById("result").innerHTML = result;
+
+</script>
+
+</body>
+</html>

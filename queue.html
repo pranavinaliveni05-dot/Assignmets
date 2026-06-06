@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Customer Queue</title>
+</head>
+
+<body>
+
+<h2>Customer Queue System</h2>
+
+<button onclick="addCustomer()">
+    Add Customer
+</button>
+
+<button onclick="removeCustomer()">
+    Remove Customer
+</button>
+
+<button onclick="displayFirstCustomer()">
+    Display First Customer
+</button>
+
+<button onclick="showTotalCustomers()">
+    Total Customers
+</button>
+
+<p id="output"></p>
+
+<script>
+
+// Queue Array
+let customers = [];
+
+
+// Add Customer
+function addCustomer() {
+
+    let name = prompt("Enter Customer Name");
+
+    customers.push(name);
+
+    document.getElementById("output").innerHTML =
+        name + " added to queue";
+}
+
+
+// Remove Customer
+function removeCustomer() {
+
+    if(customers.length == 0) {
+
+        document.getElementById("output").innerHTML =
+            "Queue is Empty";
+    }
+    else {
+
+        let removed = customers.shift();
+
+        document.getElementById("output").innerHTML =
+            removed + " removed from queue";
+    }
+}
+
+
+// Display First Customer
+function displayFirstCustomer() {
+
+    if(customers.length == 0) {
+
+        document.getElementById("output").innerHTML =
+            "Queue is Empty";
+    }
+    else {
+
+        document.getElementById("output").innerHTML =
+            "First Customer: " + customers[0];
+    }
+}
+
+
+// Show Total Customers
+function showTotalCustomers() {
+
+    document.getElementById("output").innerHTML =
+        "Total Customers in Queue: " + customers.length;
+}
+
+</script>
+
+</body>
+</html>

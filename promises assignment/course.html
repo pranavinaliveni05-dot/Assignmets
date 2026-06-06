@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Course Registration System</title>
+</head>
+
+<body>
+
+<h1>Student Course Registration System Using Async/Await</h1>
+
+<button onclick="viewCourses()">View Courses</button>
+<button onclick="registerStudent()">Register Student</button>
+<button onclick="updateRegistration()">Update Registration</button>
+<button onclick="cancelRegistration()">Cancel Registration</button>
+
+<div id="output"></div>
+
+<script>
+
+const api = "https://jsonplaceholder.typicode.com/users";
+
+// GET
+async function viewCourses() {
+
+    try {
+
+        const response = await fetch(api);
+
+        const data = await response.json();
+
+        let output = "<h2>Available Courses</h2>";
+
+        data.slice(0,5).forEach(course => {
+
+            output += `
+                <hr>
+                <p><b>Course Code:</b> C00${course.id}</p>
+                <p><b>Course Name:</b> ${course.name}</p>
+            `;
+
+        });
+
+        document.getElementById("output").innerHTML = output;
+
+    }
+
+    catch(error) {
+
+        document.getElementById("output").innerHTML =
+        "Error Fetching Courses";
+
+    }
+
+}
+
+// POST
+async function registerStudent() {
+
+    try {
+
+        const response = await fetch(api, {
+
+            method: "POST",
+
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify({
+                student: "Monisha",
+                course: "Java Programming"
+            })
+
+        });
+
+        const data = await response.json();
+
+        document.getElementById("output").innerHTML = `
+            <h2>Student Registered Successfully</h2>
+            <p>Student Name: pranavi</p>
+            <p>Course: Java Programming</p>
+        `;
+
+    }
+
+    catch(error) {
+
+        document.getElementById("output").innerHTML =
+        "Error Registering Student";
+
+    }
+
+}
+
+// PUT
+async function updateRegistration() {
+
+    try {
+
+        const response = await fetch(api + "/1", {
+
+            method: "PUT",
+
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify({
+                course: "Web Development"
+            })
+
+        });
+
+        const data = await response.json();
+
+        document.getElementById("output").innerHTML = `
+            <h2>Registration Updated Successfully</h2>
+            <p>Updated Course: Web Development</p>
+        `;
+
+    }
+
+    catch(error) {
+
+        document.getElementById("output").innerHTML =
+        "Error Updating Registration";
+
+    }
+
+}
+
+// DELETE
+async function cancelRegistration() {
+
+    try {
+
+        await fetch(api + "/1", {
+
+            method: "DELETE"
+
+        });
+
+        document.getElementById("output").innerHTML =
+        "<h2>Registration Cancelled Successfully</h2>";
+
+    }
+
+    catch(error) {
+
+        document.getElementById("output").innerHTML =
+        "Error Cancelling Registration";
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>

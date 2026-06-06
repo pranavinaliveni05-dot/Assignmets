@@ -1,0 +1,124 @@
+ <!DOCTYPE html>
+<html>
+<head>
+    <title>Product Inventory System</title>
+</head>
+
+<body>
+
+<h1>Product Inventory System Using Async/Await</h1>
+
+<button onclick="getProducts()">Fetch Products</button>
+<button onclick="addProduct()">Add Product</button>
+<button onclick="updateProduct()">Update Product</button>
+<button onclick="deleteProduct()">Delete Product</button>
+
+<div id="output"></div>
+
+<script>
+
+// GET
+async function getProducts() {
+
+    try {
+
+        let products = [
+
+            { code: "P001", name: "Dell Laptop" },
+            { code: "P002", name: "iPhone Mobile" },
+            { code: "P003", name: "Samsung Tablet" },
+            { code: "P004", name: "Boat Earphones" },
+            { code: "P005", name: "Smart Watch" }
+
+        ];
+
+        let output = "<h2>Product List</h2>";
+
+        products.forEach(product => {
+
+            output += `
+                <hr>
+                <p><b>Product Code:</b> ${product.code}</p>
+                <p><b>Product Name:</b> ${product.name}</p>
+            `;
+
+        });
+
+        document.getElementById("output").innerHTML = output;
+
+    }
+
+    catch(error) {
+
+        document.getElementById("output").innerHTML =
+        "Error Fetching Products";
+
+    }
+
+}
+
+// POST
+async function addProduct() {
+
+    try {
+
+        document.getElementById("output").innerHTML = `
+            <h2>Product Added Successfully</h2>
+            <p>Product Name: Asus Laptop</p>
+        `;
+
+    }
+
+    catch(error) {
+
+        document.getElementById("output").innerHTML =
+        "Error Adding Product";
+
+    }
+
+}
+
+// PUT
+async function updateProduct() {
+
+    try {
+
+        document.getElementById("output").innerHTML = `
+            <h2>Product Updated Successfully</h2>
+            <p>Updated Product: Dell Laptop</p>
+        `;
+
+    }
+
+    catch(error) {
+
+        document.getElementById("output").innerHTML =
+        "Error Updating Product";
+
+    }
+
+}
+
+// DELETE
+async function deleteProduct() {
+
+    try {
+
+        document.getElementById("output").innerHTML =
+        "<h2>Product Deleted Successfully</h2>";
+
+    }
+
+    catch(error) {
+
+        document.getElementById("output").innerHTML =
+        "Error Deleting Product";
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>

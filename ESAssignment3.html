@@ -1,0 +1,53 @@
+ <!DOCTYPE html>
+<html>
+<head>
+    <title>Library System</title>
+</head>
+<body>
+
+<h2>Library Book Details</h2>
+<div id="output"></div>
+
+<script>
+
+// Book Class
+class Book {
+    constructor(title, author, ...prices) {  // rest operator
+        this.title = title;
+        this.author = author;
+        this.prices = prices;
+    }
+
+    // Arrow function to calculate final price
+    getFinalPrice = () => {
+        return this.prices.reduce((total, p) => total + p, 0);
+    }
+}
+
+// Creating book objects
+const book1 = new Book("JavaScript Basics", "John Doe", 200, 50, -20);
+const book2 = new Book("Python Guide", "Jane Smith", 300, -30, 40);
+
+// Destructuring + Display
+let output = "";
+
+[book1, book2].forEach(book => {
+    const { title, author } = book;  // destructuring
+    const finalPrice = book.getFinalPrice();
+
+    output += `
+        <p>
+        <b>Title:</b> ${title} <br>
+        <b>Author:</b> ${author} <br>
+        <b>Final Price:</b> ₹${finalPrice}
+        </p>
+        <hr>
+    `;
+});
+
+document.getElementById("output").innerHTML = output;
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Management System</title>
+</head>
+<body>
+
+    <h1>Smart Student Management System</h1>
+
+    <button onclick="displayStudents()">Display Students</button>
+    <button onclick="averageMarks()">Average Marks</button>
+    <button onclick="topStudents()">Top Students (&gt;75)</button>
+    <button onclick="departmentCount()">Department Count</button>
+    <button onclick="vowelCount()">Vowel Count</button>
+
+    <h3>Output:</h3>
+    <div id="output"></div>
+
+    <script>
+        const students = [
+            { id: 1, name: "pranavi", marks: 99, department: "CSE", attendance: 90 },
+            { id: 2, name: "Arha",  marks: 72, department: "ECE", attendance: 85 },
+            { id: 3, name: "maha",   marks: 95, department: "CSE", attendance: 92 },
+            { id: 4, name: "ayushq",   marks: 65, department: "AIDS", attendance: 80 },
+            { id: 5, name: "lekha",   marks: 78, department: "ECE", attendance: 88 }
+        ];
+
+        function displayStudents() {
+            let html = "";
+            students.forEach(s => {
+                html += `id: ${s.id}<br>
+                         name: ${s.name}<br>
+                         marks: ${s.marks}<br>
+                         department: ${s.department}<br>
+                         attendance: ${s.attendance}<br>
+                         <hr>`;
+            });
+            document.getElementById("output").innerHTML = html;
+        }
+
+        function averageMarks() {
+            const total = students.reduce((sum, s) => sum + s.marks, 0);
+            const avg = (total / students.length).toFixed(1);
+            document.getElementById("output").innerHTML = `Average Marks: ${avg}`;
+        }
+
+        function topStudents() {
+            const top = students.filter(s => s.marks > 75);
+            let html = "Students with marks &gt; 75:<br>";
+            top.forEach(s => {
+                html += `${s.name}<br>`;
+            });
+            document.getElementById("output").innerHTML = html;
+        }
+
+        function departmentCount() {
+            const deptCount = {};
+            students.forEach(s => {
+                deptCount[s.department] = (deptCount[s.department] || 0) + 1;
+            });
+            let html = "Department Count:<br>";
+            for (let dept in deptCount) {
+                html += `${dept}: ${deptCount[dept]}<br>`;
+            }
+            document.getElementById("output").innerHTML = html;
+        }
+
+        function vowelCount() {
+            const vowels = "aeiouAEIOU";
+            let count = 0;
+            students.forEach(s => {
+                for (let ch of s.name) {
+                    if (vowels.includes(ch)) count++;
+                }
+            });
+            document.getElementById("output").innerHTML = `Total Vowels in Names: ${count}`;
+        }
+    </script>
+
+</body>
+</html>
